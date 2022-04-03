@@ -7,7 +7,7 @@ Code Projects for Rehabilitation
 2. 머신러닝 & 딥러닝
 3. 데이터베이스
 
-Coding rehabilitation for compensate 18 months blank.
+Coding rehabilitation to make up for 18 months break.
 
 1. Data Structure & Algorithm
 2. Machine Learning & Deep Learning
