@@ -2,6 +2,18 @@
 
 using namespace std;
 
+int maxof(const int* a, int n)
+{
+    int max = a[0];
+    for(int i = 0; i < n; i++)
+    {
+        if (max < a[i])
+            max = a[i];
+    }
+
+    return max;
+}
+
 int main()
 {
     int n;
@@ -17,12 +29,7 @@ int main()
         cin >> a[i];
     }
 
-    cout << "-----Values-----\n";
-
-    for(int i = 0; i < n; i++)
-    {
-        cout << "a[" << i << "] : " << a[i] << endl;
-    }
+    cout << "Max value is " << maxof(a, n) << endl;
 
     delete[] a;
 
