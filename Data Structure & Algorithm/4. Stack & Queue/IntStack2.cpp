@@ -78,7 +78,7 @@ int LSearch(const IntStack* s, int x)
     for(int i = s->lptr - 1; i >= 0; i--)
     {
         if(s->stk[i] == x)
-            return i + 1;
+            return s->lptr - i;
     }
     return -1;
 }

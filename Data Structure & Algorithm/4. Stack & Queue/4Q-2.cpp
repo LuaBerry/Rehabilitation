@@ -128,5 +128,7 @@ int main()
 
     Terminate(s);
 
+    delete s;
+    
     return 0;
 }

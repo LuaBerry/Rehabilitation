@@ -78,7 +78,7 @@ int Search(const IntStack* s, int x)
     for(int i = s->ptr - 1; i >= 0; i--)
     {
         if(s->stk[i] == x)
-            return i;
+            return (s->ptr) - i;
     }
     return -1;
 }
