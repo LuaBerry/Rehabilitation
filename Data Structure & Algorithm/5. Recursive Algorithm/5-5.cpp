@@ -8,19 +8,22 @@ void recur(int n)
     IntStack* stk = new IntStack;
     Initialize(stk, 100);
 
-Top:
-    if(n > 0)
+    while(1)
     {
-        Push(stk, n);
-        n = n-1;
-        goto Top;
-    }
-    if(!IsEmpty(stk))
-    {
-        Pop(stk, &n);
-        cout << n << endl;
-        n = n - 2;
-        goto Top;
+        if(n > 0)
+        {
+            Push(stk, n);
+            n = n - 1;
+            continue;
+        }
+        if(!IsEmpty(stk))
+        {
+            Pop(stk, &n);
+            cout << n << endl;
+            n = n - 2;
+            continue;
+        }
+        break;
     }
 
     Terminate(stk);
