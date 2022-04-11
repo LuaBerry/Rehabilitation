@@ -49,5 +49,7 @@ int main()
         cout << "Num[" << i << "]: " << arr[i] << endl;
     }
 
+    delete[] arr;
+    
     return 0;
 }

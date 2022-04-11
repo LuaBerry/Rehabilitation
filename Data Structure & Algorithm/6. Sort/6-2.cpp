@@ -1,6 +1,6 @@
 #include<iostream>
 
-#define swap(type, a, b) do{type temp = a; a = b; b = temp; } while(0); 
+#define swap(type, a, b) do{type temp = a; a = b; b = temp; } while(0)
 
 using namespace std;
 
@@ -54,5 +54,6 @@ int main()
         cout << "Num[" << i << "]: " << arr[i] << endl;
     }
 
+    delete[] arr;
     return 0;
 }

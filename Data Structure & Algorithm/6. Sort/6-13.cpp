@@ -1,9 +1,8 @@
 #include<iostream>
-#define swap(type, x, y) {type temp = x; x = y; y = temp;} while(0);
 
 using namespace std;
 
-void mergeSort(int* arrA, int na, int* arrB, int nb)
+void merge(int* arrA, int na, int* arrB, int nb)
 {
     int* arrResult = new int[na + nb];
     int i, j;
@@ -14,8 +13,6 @@ void mergeSort(int* arrA, int na, int* arrB, int nb)
             arrResult[arrP++] = arrA[i++];
         else
             arrResult[arrP++] = arrB[j++];
-
-        cout << "i: " << i << " j: " << j << endl;
     }
     while(i < na) arrResult[arrP++] = arrA[i++];
     while(j < nb) arrResult[arrP++] = arrB[j++];
@@ -53,7 +50,10 @@ int main()
         cin >> arrB[i];
     }
 
-    mergeSort(arrA, na, arrB, nb);
+    merge(arrA, na, arrB, nb);
+
+    delete[] arrA;
+    delete[] arrB;
 
     return 0;
 }
