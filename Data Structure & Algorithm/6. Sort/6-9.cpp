@@ -3,11 +3,13 @@
 
 using namespace std;
 
-void quickSort(int* arr, int n)
+int n;
+
+void quickSort(int* arr, int pl, int pr)
 {
-    int pl = 0;
-    int pr = n - 1;
-    int piv = arr[n / 2];
+    int piv = arr[(pr + pl) / 2];
+    int left = pl;
+    int right = pr;
     while(pl <= pr)
     {
         for( ; arr[pl] < piv; pl++);
@@ -18,38 +20,21 @@ void quickSort(int* arr, int n)
             pl++; pr--;
         }
     }
-
-    cout << "Piv: " << piv << endl;
-    cout << pl << " " << pr << endl;
-    cout << "Left Nums: ";
-
-    for(int i = 0; i < pl; i++)
+    cout << "num: ";
+    for(int i = 0; i < n; i++)
     {
         cout << arr[i] << " ";
     }
-
-    cout << "\nMiddle Nums: ";
-
-    for(int i = pr + 1; i < pl; i++)
-    {
-        cout << arr[i] << " ";
-    }
-
-    cout << "\nRight Nums: ";
-
-    for(int i = pr + 1; i < n; i++)
-    {
-        cout << arr[i] << " ";
-    }
-
     cout << endl;
 
+    if(left < pr) quickSort(arr, left, pr);
+    if(pl < right) quickSort(arr, pl, right);
 }
 
 int main()
 {
     int* arr;
-    int n;
+
     cout << "Input length: ";
     cin >> n;
 
@@ -61,7 +46,11 @@ int main()
         cin >> arr[i];
     }
 
-    quickSort(arr, n);
+    quickSort(arr, 0, n - 1);
 
+    for(int i = 0; i < n; i++)
+    {
+        cout << "num: " << arr[i] << endl;
+    }
     return 0;
 }
