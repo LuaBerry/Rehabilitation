@@ -98,10 +98,8 @@ void RemoveCurrent(List *list)
 
 void Clear(List *list)
 {
-    Node* node = list->head;
-    while(node != NULL)
+    while(list->head == NULL)
     {
-        node = node->next;
         RemoveFront(list);
     }
 }
