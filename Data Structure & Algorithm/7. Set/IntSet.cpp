@@ -22,13 +22,9 @@ int IsMember(const IntSet* s, int n)
 
 void Add(IntSet* s, int n)
 {
-    if(IsMember(s, n) == -1)
+    if(Size(s) < Capacity(s) && (IsMember(s, n) == -1))
     {
         s->set[s->num++] = n;
-    }
-    else
-    {
-        std::cout << n << " is already in the set.\n";
     }
 }
 
@@ -39,10 +35,6 @@ void Remove(IntSet* s, int n)
     {
         s->num -= 1;
         s->set[idx] = s->set[s->num];
-    }
-    else
-    {
-        std::cout << n << " is already in the set.\n";
     }
 }
 
@@ -99,10 +91,8 @@ IntSet* Intersection(const IntSet* s1, const IntSet* s2)
     Initialize(retSet, (s1->num));
 
     for(int i = 0; i < s2->num; i++)
-    {
-        if(IsMember(s1, s2->set[i]))
-        Add(retSet, s2->set[i]);
-    }
+        if(IsMember(s1, s2->set[i]) != -1)
+            Add(retSet, s2->set[i]);
 
     return retSet;
 }
@@ -115,10 +105,8 @@ IntSet* Difference(const IntSet* s1, const IntSet* s2)
     Assign(retSet, s1);
 
     for(int i = 0; i < s1->num; i++)
-    {
-        if(IsMember(s2, s1->set[i]))
-        Remove(retSet, s1->set[i]);
-    }
+        if(IsMember(s2, s1->set[i]) != -1)
+            Remove(retSet, s1->set[i]);
 
     return retSet;
 }
