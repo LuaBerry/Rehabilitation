@@ -20,9 +20,9 @@ void Initialize(List *list);
 
 Node* Search(List *list, const Member *n, int compare(const Member *x, const Member *y));
 
-void InsertFront(List *list, const Member *n);
+void InsertFront(List *list, Member *n);
 
-void InsertRear(List *list, const Member *n);
+void InsertRear(List *list, Member *n);
 
 void RemoveFront(List *list);
 

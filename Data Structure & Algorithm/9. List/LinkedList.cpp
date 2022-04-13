@@ -19,7 +19,7 @@ Node* Search(List *list, const Member *n, int compare(const Member *x, const Mem
     Node* node = list->head;
     while(node != NULL)
     {
-        if(compare(node->data, n) == 0)
+        if(compare(node->data, n))
         {
             list->cur = node;
             return node;
@@ -98,28 +98,38 @@ void RemoveCurrent(List *list)
 
 void Clear(List *list)
 {
-    while(list->head == NULL)
+    while(list->head != NULL)
     {
         RemoveFront(list);
     }
+    list->cur = NULL;
 }
 
 void PrintCurrent(const List *list)
 {
-
+    if(list->cur != NULL)
+        PrintMember((list->cur)->data);
 }
 
 void PrintlnCurrent(const List *list)
 {
-
+    PrintCurrent(list);
+    std::cout << "\n";
 }
 
 void PrintAll(const List *list)
 {
+    Node* node = list->head;
+    while(node != NULL)
+    {
+        PrintMember(node->data);
+        std::cout << "\n";
+        node = node->next;
+    }
 
 }
 
 void Terminate(List *list)
 {
-
+    Clear(list);
 }
