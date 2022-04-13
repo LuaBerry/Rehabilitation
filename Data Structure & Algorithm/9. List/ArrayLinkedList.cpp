@@ -4,7 +4,7 @@
 
 static id GetIndex(List *list)
 {
-    if(list->deleted == NULL)
+    if(list->deleted == idxNULL)
         return ++(list->max);
     else
     {
@@ -16,7 +16,7 @@ static id GetIndex(List *list)
 
 static void DeleteIndex(List *list, id idx)
 {
-    if(list->deleted == NULL)
+    if(list->deleted == idxNULL)
     {
         list->deleted = idx;
     }
@@ -31,128 +31,144 @@ static void SetNode(Node *n, Member *x, id next)
 {
     n->data = x;
     n->next = next;
-    n->fnext = NULL;
+    n->fnext = idxNULL;
 }
+
+static Node* GetNode(List *list, id idx)
+{
+    return &(list->N[idx]);
+}
+
 void Initialize(List *list, int max)
 {
     list->N = new Node[max];
-    list->head = NULL;
-    list->max = NULL;
-    list->cur = NULL;
-    list->deleted = NULL;
+    list->head = idxNULL;
+    list->max = idxNULL;
+    list->cur = idxNULL;
+    list->deleted = idxNULL;
 }
 
-Node* Search(List *list, const Member *n, int compare(const Member *x, const Member *y))
+id Search(List *list, const Member *n, int compare(const Member *x, const Member *y))
 {
-    Node* node = list->head;
-    while(node != NULL)
+    id index = list->head;
+    while(index != idxNULL)
     {
-        if(compare(node->data, n))
+        std::cout << index << " = index\n";
+        PrintMember(GetNode(list, index)->data);
+        if(compare(GetNode(list, index)->data , n))
         {
-            list->cur = node;
-            return node;
+            std::cout << "in";
+            list->cur = index;
+            return index;
         }
-        node = node->next;
+        index = GetNode(list, index)->next;
     }
-    return NULL;
+    return idxNULL;
 }
 
 void InsertFront(List *list, Member *n)
 {
-    Node* node = new Node;
-    SetNode(node, n, list->head);
-    list->head = node;
-    list->cur = node;
+    id index = list->head;
+    list->head = list->cur = GetIndex(list);
+
+    std::cout << list->cur << " = list->cur\n";
+    SetNode(&list->N[list->head], n, index);
 }
 
 void InsertRear(List *list, Member *n)
 {
-    Node* tail = list->head;
-    if(tail == NULL) return;
-    
-    while(tail->next != NULL)
+    id lastIndex = list->head;
+
+    if(lastIndex == idxNULL)
     {
-        tail = tail->next;
+        InsertFront(list, n);
+        return;
     }
 
-    Node* node = new Node;
-    SetNode(node, n, NULL);
-    tail->next = node;
-    list->cur = node;
+    while((list->N[lastIndex]).next != idxNULL)
+    {
+        lastIndex = (list->N[lastIndex]).next;
+    }
+
+    (list->N[lastIndex]).next = list->cur = GetIndex(list);
+    SetNode(&list->N[list->cur], n, idxNULL);
 }
 
 void RemoveFront(List *list)
 {
-    Node* node = list->head;
-    if(node != NULL)
+    id index = list->head;
+    if(index != idxNULL)
     {
-        list->head = list->head->next;
-        delete node;
+        list->head = GetNode(list, index)->next;
+        DeleteIndex(list, index);
     }
     list->cur = list->head;
 }
 
 void RemoveRear(List *list)
 {
-    Node* tailfront = list->head;
-    if(tailfront == NULL) return;
-    Node* tail = tailfront->next;
-    if(tail == NULL) RemoveFront(list);
-    while(tail->next != NULL)
+    id tailfront = list->head;
+    if(tailfront == idxNULL) return;
+    id tail = GetNode(list, tailfront)->next;
+    if(tail == idxNULL) RemoveFront(list);
+    while(GetNode(list, tail)->next != idxNULL)
     {
         tailfront = tail;
-        tail = tailfront->next;
+        tail = GetNode(list, tail)->next;
     }
-    tailfront->next = NULL;
-    delete tail;
+    GetNode(list, tailfront)->next = idxNULL;
+    DeleteIndex(list, tail);
     list->cur = tailfront;
 }
 
 void RemoveCurrent(List *list)
 {
-    Node* node = list->cur;
-    Node* curfront = list->head;
-    if(curfront = NULL) return;
-    while(curfront != NULL)
+    id curnode = list->cur;
+    id curfront = list->head;
+
+    if(curfront == idxNULL) return;
+    if (curnode == curfront) RemoveFront(list);
+    while(curfront != idxNULL)
     {
-        if(curfront->next = list->cur)
+        if(GetNode(list, curfront)->next == curnode)
             break;
-        curfront = curfront->next;
+        curfront = GetNode(list, curfront)->next;
     }
 
-    curfront->next = node->next;
-    delete node;
+    GetNode(list, curfront)->next = GetNode(list, list->cur)->next;
+    DeleteIndex(list, list->cur);
+    list->cur = curfront;
 }
 
 void Clear(List *list)
 {
-    while(list->head != NULL)
+    while(list->head != idxNULL)
     {
         RemoveFront(list);
     }
-    list->cur = NULL;
+    list->cur = idxNULL;
 }
 
-void PrintCurrent(const List *list)
+void PrintCurrent(List *list)
 {
-    if(list->cur != NULL)
-        PrintMember((list->cur)->data);
+    if(list->cur != idxNULL)
+        PrintMember(GetNode(list, list->cur)->data);
 }
 
-void PrintlnCurrent(const List *list)
+void PrintlnCurrent(List *list)
 {
     PrintCurrent(list);
     std::cout << "\n";
 }
 
-void PrintAll(const List *list)
+void PrintAll(List *list)
 {
-    Node* node = list->head;
-    while(node != NULL)
+    id index = list->head;
+    while(index != idxNULL)
     {
-        PrintMember(node->data);
+        PrintMember(GetNode(list, index)->data);
         std::cout << "\n";
-        node = node->next;
+        index = GetNode(list, index)->next;
     }
 
 }

@@ -3,7 +3,7 @@
 
 #include "Member.h"
 
-#define NULL -1
+#define idxNULL -1
 
 typedef int id;
 
@@ -26,7 +26,7 @@ struct List
 
 void Initialize(List *list, int max);
 
-Node* Search(List *list, const Member *n, int compare(const Member *x, const Member *y));
+id Search(List *list, const Member *n, int compare(const Member *x, const Member *y));
 
 void InsertFront(List *list, Member *n);
 
@@ -40,11 +40,11 @@ void RemoveCurrent(List *list);
 
 void Clear(List *list);
 
-void PrintCurrent(const List *list);
+void PrintCurrent(List *list);
 
-void PrintlnCurrent(const List *list);
+void PrintlnCurrent(List *list);
 
-void PrintAll(const List *list);
+void PrintAll(List *list);
 
 void Terminate(List *list);
 
