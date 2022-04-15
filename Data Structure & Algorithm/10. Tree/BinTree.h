@@ -16,7 +16,7 @@ Node* Search(Node *root, const Member *m);
 
 Node* Add(Node *root, Member *n);
 
-int Remove(Node *root, Member *n);
+int Remove(Node **root, Member *n);
 
 void PrintAll(const Node *root);
 

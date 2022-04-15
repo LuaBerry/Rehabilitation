@@ -28,11 +28,11 @@ int main()
         case 1:
             cout << "Input No: "; cin >> x;
             cout << "Input Name: "; cin >> str;
-            Add(root, newMember(x, str));
+            root = Add(root, newMember(x, str));
             break;
         case 2:
             cout << "Input No: "; cin >> x;
-            Remove(root, newMember(x, ""));
+            Remove(&root, newMember(x, ""));
             break;
         case 3:
                 cout << "Input No: "; cin >> x;
