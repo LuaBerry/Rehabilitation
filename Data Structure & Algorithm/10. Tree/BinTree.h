@@ -12,11 +12,11 @@ struct Node
 
 void Initialize(Node *root);
 
-Node* Search(Node *root, const Member *n, int compare(const Member *x, const Member *y));
+Node* Search(Node *root, const Member *m);
 
 Node* Add(Node *root, Member *n);
 
-void Remove(Node *root);
+int Remove(Node *root, Member *n);
 
 void PrintAll(const Node *root);
 

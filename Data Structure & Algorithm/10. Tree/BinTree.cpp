@@ -39,12 +39,12 @@ Node* Add(Node *root, Member *m)
     else if(cmp < 0) root->right = Add(root->right, m);
 }
 
-void Remove(Node *root, Member *m)
+int Remove(Node *root, Member *m)
 {
     Node* n = Search(root, m);
     Node** node = &n;
     Node *child, *temp, **left;
-    if(node == NULL) return;
+    if(node == NULL) return -1;
 
     if((*node)->left == NULL)
         child = (*node)->right;
@@ -61,14 +61,24 @@ void Remove(Node *root, Member *m)
     temp = *node;
     *node = child;
     delete temp;
+
+    return 0;
 }
 
 void PrintAll(const Node *root)
 {
+    if(root == NULL) return;
 
+    PrintAll(root->left);
+    PrintMember(root->m);
+    PrintAll(root->right);
 }
 
 void Terminate(Node *root)
 {
-
+    if(root == NULL) return;
+    
+    Terminate(root->left);
+    Terminate(root->right);
+    delete root;
 }
