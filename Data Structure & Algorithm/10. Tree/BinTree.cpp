@@ -40,8 +40,17 @@ Node* Add(Node *root, Member *m)
 
 int Remove(Node **root, Member *m)
 {
-    Node* n = Search(*root, m);
-    Node** node = &n;
+
+    Node **node = root;
+    int cmp;
+    while(1)
+    {
+        if(root == NULL) return -1;
+        else if((cmp = CompareNo((*node)->m, m)) == 0) break;
+        else if(cmp > 0) node = &((*node)->left);
+        else node = &((*node)->right);
+    }
+
     Node *child, *temp, **left;
     if(*node == NULL) return -1;
 
@@ -59,6 +68,7 @@ int Remove(Node **root, Member *m)
     }
     temp = *node;
     *node = child;
+
     delete temp;
 
     return 0;

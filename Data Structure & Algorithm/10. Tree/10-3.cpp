@@ -32,7 +32,9 @@ int main()
             break;
         case 2:
             cout << "Input No: "; cin >> x;
-            Remove(&root, newMember(x, ""));
+            if(Remove(&root, newMember(x, "")) == -1)
+                cout << "Remove Failed\n;";
+            else cout << "Remove success.\n";
             break;
         case 3:
                 cout << "Input No: "; cin >> x;
